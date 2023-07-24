@@ -1,25 +1,21 @@
-3
+def merge_dicts(dict1, dict2):
+    # Check for overlapping keys
+    intersection = set(dict1.keys()) & set(dict2.keys())
+    if intersection:
+        raise ValueError(f"Overlapping keys found: {intersection}")
 
-class MyClass:
-    def __init__(self, value):
-        self.value = value
+    # Merge the dictionaries
+    merged_dict = dict1.copy()
+    merged_dict.update(dict2)
+    
+    return merged_dict
 
-    def __lt__(self, other):
-        # Define custom behavior for "<"
-        return self.value < other.value
+# Example usage:
+dict1 = {'name': 'John', 'age': 30}
+dict2 = {'city': 'New York', 'age': 35}
 
-    def __le__(self, other):
-        # Define custom behavior for "<="
-        return self.value <= other.value
-
-    def __ge__(self, other):
-        # Define custom behavior for ">="
-        return self.value >= other.value
-
-    def __eq__(self, other):
-        # Define custom behavior for "=="
-        return self.value == other.value
-
-    def __ne__(self, other):
-        # Define custom behavior for "!="
-        return self.value != other.value
+try:
+    merged_dict = merge_dicts(dict1, dict2)
+    print(merged_dict)
+except ValueError as e:
+    print(f"Error: {e}")
