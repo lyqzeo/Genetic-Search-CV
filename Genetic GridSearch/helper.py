@@ -4,6 +4,10 @@ from sklearn.metrics import mean_squared_error as mse_score
 from sklearn.metrics import mean_absolute_error as mae_score
 from sklearn.metrics import mean_absolute_percentage_error as mape_score
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import precision_score
 
 
 
@@ -159,13 +163,24 @@ def merge_dicts(dict1, dict2):
 
 def evaluate(actual, predicted, metric):
     '''Returns desired metrics'''
-
+    # try:    ## Classification Problem
+        
     metrics = {
                 "accuracy": accuracy_score(actual, predicted),
-                "r2":r2_score(actual, predicted), 
-                "rmse":mse_score(actual, predicted)**0.5,
-                "mse":mse_score(actual, predicted), 
-                "mae":mae_score(actual, predicted),
+                "f1": f1_score(actual, predicted),
+                "recall": recall_score(actual, predicted),
+                "precision": precision_score(actual, predicted)
                 }
+    print("Classification Problem")
+    # except ValueError:  ## Regression Problem
+    #     metrics = {
+    #                 "r2":r2_score(actual, predicted), 
+    #                 "rmse":mse_score(actual, predicted)**0.5,
+    #                 "mse":mse_score(actual, predicted), 
+    #                 "mae":mae_score(actual, predicted)
+    #                 }
+    #     print("Regression Problem")
+
+
     return metrics[metric]
 
