@@ -163,23 +163,21 @@ def merge_dicts(dict1, dict2):
 
 def evaluate(actual, predicted, metric):
     '''Returns desired metrics'''
-    # try:    ## Classification Problem
-        
-    metrics = {
-                "accuracy": accuracy_score(actual, predicted),
-                "f1": f1_score(actual, predicted),
-                "recall": recall_score(actual, predicted),
-                "precision": precision_score(actual, predicted)
-                }
-    print("Classification Problem")
-    # except ValueError:  ## Regression Problem
-    #     metrics = {
-    #                 "r2":r2_score(actual, predicted), 
-    #                 "rmse":mse_score(actual, predicted)**0.5,
-    #                 "mse":mse_score(actual, predicted), 
-    #                 "mae":mae_score(actual, predicted)
-    #                 }
-    #     print("Regression Problem")
+    try:    ## Classification Problem
+        metrics = {
+                    "accuracy": accuracy_score(actual, predicted),
+                    "f1": f1_score(actual, predicted, average = "weighted"),
+                    "recall": recall_score(actual, predicted, average = "weighted"),
+                    "precision": precision_score(actual, predicted, average = "weighted")
+                    }
+
+    except ValueError:  ## Regression Problem
+        metrics = {
+                    "r2":r2_score(actual, predicted), 
+                    "rmse":mse_score(actual, predicted)**0.5,
+                    "mse":mse_score(actual, predicted), 
+                    "mae":mae_score(actual, predicted)
+                    }
 
 
     return metrics[metric]
