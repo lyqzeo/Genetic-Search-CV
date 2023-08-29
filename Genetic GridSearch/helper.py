@@ -43,7 +43,7 @@ def insertionSort(pop, left, right, dir):
     for i in range(left + 1, right + 1):
         j = i
 
-        if dir == 1:       ## Ascendimg
+        if dir == 0:       ## Ascendimg
             while j > left and pop[j] < pop[j - 1]:
                 pop[j], pop[j - 1] = pop[j - 1], pop[j]
                 j -= 1
@@ -54,7 +54,7 @@ def insertionSort(pop, left, right, dir):
 
 
 # Merge function merges the sorted runs
-def merge(pop, l, m, r, dir = 1):
+def merge(pop, l, m, r, dir):
 
     # original array is broken in two parts
     # left and right array
@@ -69,7 +69,7 @@ def merge(pop, l, m, r, dir = 1):
 
     # after comparing, we merge those two array
     # in larger sub array
-    if dir == 1:   ## Ascending
+    if dir == 0:   ## Ascending
         while i < len1 and j < len2:
             if left[i] <= right[j]:
                 pop[k] = left[i]
@@ -106,14 +106,14 @@ def merge(pop, l, m, r, dir = 1):
 
 # Iterative Timsort function to sort the
 # array[0...n-1] (similar to merge sort)
-def tim_sort(pop, dir = 1):
+def tim_sort(pop, dir):
     """
     Purpose:
     Sorts population based on fitness values
 
     Input: 
     pop: Takes in a population
-    dir: '1' - Ascending, '0' - 'Descending'
+    dir: '0' - Ascending, '1' - 'Descending'
     """
     n = len(pop)
     minRun = calcMinRun(n)
@@ -142,7 +142,7 @@ def tim_sort(pop, dir = 1):
             # Merge sub array arr[left.....mid] &
             # arr[mid+1....right]
             if mid < right:
-                merge(pop, left, mid, right)
+                merge(pop, left, mid, right, dir)
 
         size = 2 * size
 
@@ -164,12 +164,15 @@ def merge_dicts(dict1, dict2):
 def evaluate(actual, predicted, metric):
     '''Returns desired metrics'''
     try:    ## Classification Problem
+            ## introduce ROC_AUC !! only can binary class !!
         metrics = {
                     "accuracy": accuracy_score(actual, predicted),
                     "f1": f1_score(actual, predicted, average = "weighted"),
-                    "recall": recall_score(actual, predicted, average = "weighted"),
-                    "precision": precision_score(actual, predicted, average = "weighted")
+                    "recall": recall_score(actual, predicted, average = "weighted", zero_division = 0),
+                    "precision": precision_score(actual, predicted, average = "weighted", zero_division = 0)
                     }
+
+
 
     except ValueError:  ## Regression Problem
         metrics = {
@@ -181,4 +184,3 @@ def evaluate(actual, predicted, metric):
 
 
     return metrics[metric]
-
