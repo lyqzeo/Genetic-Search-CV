@@ -161,26 +161,26 @@ def merge_dicts(dict1, dict2):
     return merged_dict
 
 
-def evaluate(actual, predicted, metric):
-    '''Returns desired metrics'''
-    try:    ## Classification Problem
-            ## introduce ROC_AUC !! only can binary class !!
-        metrics = {
-                    "accuracy": accuracy_score(actual, predicted),
-                    "f1": f1_score(actual, predicted, average = "weighted"),
-                    "recall": recall_score(actual, predicted, average = "weighted", zero_division = 0),
-                    "precision": precision_score(actual, predicted, average = "weighted", zero_division = 0)
-                    }
+# def evaluate(actual, predicted, metric):
+#     '''Returns desired metrics'''
+#     try:    ## Classification Problem
+#             ## introduce ROC_AUC !! only can binary class !!
+#         metrics = {
+#                     "accuracy": accuracy_score(actual, predicted),
+#                     "f1": f1_score(actual, predicted, average = "weighted"),
+#                     "recall": recall_score(actual, predicted, average = "weighted", zero_division = 0),
+#                     "precision": precision_score(actual, predicted, average = "weighted", zero_division = 0)
+#                     }
 
 
 
-    except ValueError:  ## Regression Problem
-        metrics = {
-                    "r2":r2_score(actual, predicted), 
-                    "rmse":mse_score(actual, predicted)**0.5,
-                    "mse":mse_score(actual, predicted), 
-                    "mae":mae_score(actual, predicted)
-                    }
+#     except ValueError:  ## Regression Problem
+#         metrics = {
+#                     "r2":r2_score(actual, predicted), 
+#                     "rmse":mse_score(actual, predicted)**0.5,
+#                     "mse":mse_score(actual, predicted), 
+#                     "mae":mae_score(actual, predicted)
+#                     }
 
 
-    return metrics[metric]
+#     return metrics[metric]

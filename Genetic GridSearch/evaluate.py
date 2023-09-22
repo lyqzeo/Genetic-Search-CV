@@ -43,7 +43,7 @@ class Evaluate:
             'classification': ['int', 'str', 'bool', 'int32', 'int64']     ## Classification = 0
         }
 
-        thresh = params.get('thresh', 10)
+        thresh = params.get('thresh', 10
 
         if y.nunique() == 1: ## Only 1 y value
             raise ValueError("Unable to model y as it only has 1 value")
@@ -78,9 +78,9 @@ class Evaluate:
         if self.p_type == 0:    ## Classification Problem
             metrics = {
                         "accuracy": accuracy_score(actual, predicted),
-                        "f1": f1_score(actual, predicted, average = "weighted"),
-                        "recall": recall_score(actual, predicted, average = "weighted"),
-                        "precision": precision_score(actual, predicted, average = "weighted")
+                        "f1": f1_score(actual, predicted, average = "weighted", zero_division = 0),
+                        "recall": recall_score(actual, predicted, average = "weighted", zero_division = 0),
+                        "precision": precision_score(actual, predicted, average = "weighted", zero_division = 0)
                         }
         else:  ## Regression Problem
             metrics = {
